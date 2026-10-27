@@ -57,6 +57,23 @@ the merged rootfs ships an empty `/etc/hosts`, and without a localhost
 entry cloudflared exits at startup because it cannot bind its metrics
 listener (it resolves the name through DNS and fails).
 
+## Docker image
+
+The same stack is also packaged as a plain Docker image (the
+`Dockerfile` in this repo): `FROM ghcr.io/zv201413/zvps` plus the
+autostart overlay. The upstream entrypoint runs `/home/zv/init_env.sh`
+on every container start, so the autostart behaves exactly as on
+Unikraft — installer at +30 s, all values from the environment:
+
+```sh
+docker build -t zvps-unikraft-autostart .
+docker run -d --name zvps --env-file <your.env> zvps-unikraft-autostart
+```
+
+`<your.env>` holds the same 7 variables as `env.example`. Other
+projects can run the image as-is or import it as a base
+(`FROM <registry>/zvps-unikraft-autostart`).
+
 ## Deploy
 
 1. Create (or edit) the instance to use the new image.

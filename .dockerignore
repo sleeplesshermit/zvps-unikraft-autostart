@@ -1,0 +1,9 @@
+# Build artifacts of the Unikraft pipeline - not part of the Docker build
+rootfs/
+zvps-super/
+blobs/
+layer_tmp/
+tmp/
+*.tar
+*.log
+.git/
