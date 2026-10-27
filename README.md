@@ -74,6 +74,15 @@ docker run -d --name zvps --env-file <your.env> zvps-unikraft-autostart
 projects can run the image as-is or import it as a base
 (`FROM <registry>/zvps-unikraft-autostart`).
 
+Publishing is automated: the GitHub Actions workflow
+`.github/workflows/docker.yml` rebuilds and pushes
+`ghcr.io/sleeplesshermit/zvps-unikraft-autostart:latest` (plus a
+short-SHA tag) to GHCR on every push to `main` that touches the
+Dockerfile or the overlay — build-on-push only, no schedule. Note: a
+newly published GHCR package starts out **private**; set it to Public
+once under the package's Settings → Danger Zone → Change visibility
+if you want unauthenticated pulls.
+
 ## Deploy
 
 1. Create (or edit) the instance to use the new image.
